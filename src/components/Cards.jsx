@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Card from "./Card";
+import "./Cards.css";
 
 const Cards = ({ points, setPoints }) => {
   const [characters, setCharacters] = useState([]);
