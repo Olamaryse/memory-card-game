@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSyncExternalStore } from "react";
 
 const App = () => {
+  const [points, setpoints] = useState(0);
   return (
     <div>
-      <Cards />
+      <Cards points={points} setpoints=/>
     </div>
   );
 };
