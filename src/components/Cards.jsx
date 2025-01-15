@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./Cards.css";
 
@@ -7,28 +7,33 @@ const Cards = ({ points, setPoints }) => {
   const [setselectedCharacter, setsetselectedCharacter] = useState([]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/ditto?limit=15offset=0")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=15&offset=0")
       .then((res) => res.json())
       .then((data) => {
-        const fetches = data.result.map((result) =>
+        if (!data.results) {
+          throw new Error("Unexpected API response format");
+        }
+        const fetches = data.results.map((result) =>
           fetch(result.url).then((res) => res.json())
         );
-        Promise.all(fetches.then((result) => setCharacters(result)));
-      });
+
+        Promise.all(fetches).then((result) => setCharacters(result));
+      })
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   return (
     <div className="card-container">
       {characters?.map((character, index) => (
-        <card
-          setCharacters={setCharacters}
+        <Card
           key={index}
           link={character.sprites.front_default}
           name={character.name}
           points={points}
           setPoints={setPoints}
+          //   setCharacters={setCharacters}
+          //   selectedCharacters={selectedCharacters}
           setselectedCharacter={setselectedCharacter}
-          selectedCharacters={selectedCharacters}
         />
       ))}
     </div>

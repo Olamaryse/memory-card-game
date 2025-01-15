@@ -6,8 +6,8 @@ const Card = ({
   name,
   setPoints,
   setCharacters,
-  setselectedCharacter,
   selectedCharacters,
+  setselectedCharacter,
 }) => {
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -31,7 +31,7 @@ const Card = ({
     }
 
     setCharacters((currentOrder) => {
-      return shuffleArray(currentOrder);
+      return shuffleArray(...currentOrder);
     });
   };
   return (
@@ -40,7 +40,7 @@ const Card = ({
         <img src={link} alt={name} className="card-image" />
       </div>
       <div className="card-name">
-        <h3>name</h3>
+        <h3>{name}</h3>
       </div>
     </div>
   );
