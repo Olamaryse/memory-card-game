@@ -4,10 +4,11 @@ import "./Cards.css";
 
 const Cards = ({ points, setPoints }) => {
   const [characters, setCharacters] = useState([]);
-  const [setselectedCharacter, setsetselectedCharacter] = useState([]);
+  //   const [setSelectedCharacters, setSetSelectedCharacters] = useState([]);
+  const [selectedCharacters, setSelectedCharacters] = useState([]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=15&offset=0")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=25&offset=0")
       .then((res) => res.json())
       .then((data) => {
         if (!data.results) {
@@ -24,16 +25,16 @@ const Cards = ({ points, setPoints }) => {
 
   return (
     <div className="card-container">
-      {characters?.map((character, index) => (
+      {characters.map((character, index) => (
         <Card
           key={index}
           link={character.sprites.front_default}
           name={character.name}
           points={points}
           setPoints={setPoints}
-          //   setCharacters={setCharacters}
-          //   selectedCharacters={selectedCharacters}
-          setselectedCharacter={setselectedCharacter}
+          setCharacters={setCharacters}
+          selectedCharacters={selectedCharacters}
+          setSelectedCharacters={setSelectedCharacters}
         />
       ))}
     </div>
